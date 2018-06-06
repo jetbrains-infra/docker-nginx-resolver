@@ -10,11 +10,11 @@ map ${DOLLAR}http_upgrade ${DOLLAR}connection_upgrade {
 # Sets a $real_scheme variable whose value is the scheme passed by the load
 # balancer in X-Forwarded-Proto (if any), defaulting to $scheme.
 # Similar to how the HttpRealIp module treats X-Forwarded-For.
-map ${DOLLAR}http_x_forwarded_proto $real_scheme {
+map ${DOLLAR}http_x_forwarded_proto ${DOLLAR}real_scheme {
   default ${DOLLAR}http_x_forwarded_proto;
   ''      ${DOLLAR}scheme;
 }
-map ${DOLLAR}http_x_forwarded_port $real_port {
+map ${DOLLAR}http_x_forwarded_port ${DOLLAR}real_port {
   default ${DOLLAR}http_x_forwarded_port;
   ''      ${DOLLAR}server_port;
 }
