@@ -14,6 +14,10 @@ map ${DOLLAR}http_x_forwarded_proto $real_scheme {
   default ${DOLLAR}http_x_forwarded_proto;
   ''      ${DOLLAR}scheme;
 }
+map ${DOLLAR}http_x_forwarded_port $real_port {
+  default ${DOLLAR}http_x_forwarded_port;
+  ''      ${DOLLAR}server_port;
+}
 
 server {
         listen 80;
@@ -49,8 +53,8 @@ server {
             proxy_set_header    X-Forwarded-For   ${DOLLAR}proxy_add_x_forwarded_for;
             proxy_set_header    X-Forwarded-By    ${DOLLAR}server_addr:$server_port;
             proxy_set_header    X-Forwarded-Proto ${DOLLAR}real_scheme;
-            proxy_set_header    X-Forwarded-Host  ${DOLLAR}host:${DOLLAR}http_x_forwarded_port;
-            proxy_set_header    X-Forwarded-Port  ${DOLLAR}http_x_forwarded_port;
+            proxy_set_header    X-Forwarded-Host  ${DOLLAR}host:${DOLLAR}real_port;
+            proxy_set_header    X-Forwarded-Port  ${DOLLAR}real_port;
             proxy_set_header    Upgrade           ${DOLLAR}http_upgrade;
             proxy_set_header    Connection        ${DOLLAR}connection_upgrade;
         }
