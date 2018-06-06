@@ -7,10 +7,13 @@ map ${DOLLAR}http_upgrade ${DOLLAR}connection_upgrade {
     ''   '';
 }
 
-map ${DOLLAR}http_x_forwarded_proto ${DOLLAR}forward_scheme {
-     default ${DOLLAR}scheme;
-     https https;
- }
+# Sets a $real_scheme variable whose value is the scheme passed by the load
+# balancer in X-Forwarded-Proto (if any), defaulting to $scheme.
+# Similar to how the HttpRealIp module treats X-Forwarded-For.
+map ${DOLLAR}http_x_forwarded_proto $real_scheme {
+  default ${DOLLAR}http_x_forwarded_proto;
+  ''      ${DOLLAR}scheme;
+}
 
 server {
         listen 80;
@@ -45,7 +48,7 @@ server {
             proxy_set_header    X-Real-IP         ${DOLLAR}remote_addr;
             proxy_set_header    X-Forwarded-For   ${DOLLAR}proxy_add_x_forwarded_for;
             proxy_set_header    X-Forwarded-By    ${DOLLAR}server_addr:$server_port;
-            proxy_set_header    X-Forwarded-Proto ${DOLLAR}forward_scheme;
+            proxy_set_header    X-Forwarded-Proto ${DOLLAR}real_scheme;
             proxy_set_header    X-Forwarded-Host  ${DOLLAR}host:${DOLLAR}http_x_forwarded_port;
             proxy_set_header    X-Forwarded-Port  ${DOLLAR}http_x_forwarded_port;
             proxy_set_header    Upgrade           ${DOLLAR}http_upgrade;
