@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - "backend_address=http-echo:80"
+  http-echo:
+    image: "solsson/http-echo"
+    environment:
+      - "PORT=80"
