@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build --build-arg CONTAINER_VERSION=$sourceref -t $IMAGE_NAME .
+docker build --build-arg CONTAINER_VERSION=$DOCKER_TAG -t $IMAGE_NAME .
