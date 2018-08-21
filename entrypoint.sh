@@ -1,11 +1,10 @@
 #!/bin/sh
 set -e
+export DOLLAR='$'
+for filename in /etc/nginx/includes/*.tpl; do
+    envsubst < $filename > ${filename%.*}
+done
 
 echo resolver $(awk 'BEGIN{ORS=" "} $1=="nameserver" {print $2}' /etc/resolv.conf) ";" > /etc/nginx/includes/resolver.conf
-
-export DOLLAR='$'
-envsubst < /etc/nginx/includes/location_root.conf.tpl > /etc/nginx/includes/location_root.conf
-envsubst < /etc/nginx/includes/location_proxy.conf.tpl > /etc/nginx/includes/location_proxy.conf
-envsubst < /etc/nginx/includes/location_health.conf.tpl > /etc/nginx/includes/location_health.conf
 
 exec "$@"
