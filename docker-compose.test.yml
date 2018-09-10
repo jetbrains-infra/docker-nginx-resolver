@@ -1,0 +1,37 @@
+version: '3'
+services:
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - "CONTAINER_VERSION=test"
+      - "main_host=httpbin"
+      - "readonly_host=readonly"
+      - "buildkotlinlang_host=buildkotlinlang"
+    depends_on:
+      - httpbin
+      - readonly
+      - buildkotlinlang
+  readonly:
+    image: "hashicorp/http-echo"
+    command:
+      - "-listen=:80"
+      - "-text=readonly"
+  buildkotlinlang:
+    image: "hashicorp/http-echo"
+    command:
+      - "-listen=:80"
+      - "-text=buildkotlinlang"
+  httpbin:
+    image: "kennethreitz/httpbin"
+  sut:
+    image: alpine:latest
+    depends_on:
+      - nginx
+    volumes:
+      - ./test:/test
+    entrypoint:
+      /bin/sh -c
+    command:
+      - apk --no-cache update && apk --no-cache add bash jq curl && rm -rf /var/cache/apk/* && /test/run.sh
