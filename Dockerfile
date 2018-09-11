@@ -6,8 +6,9 @@ LABEL image.Version="dev"
 ARG CONTAINER_VERSION=dev
 
 ENV CONTAINER_VERSION ${CONTAINER_VERSION}
-ENV backend_address localhost
-ENV readonly_host_prefix readonly.
+ENV main_host localhost
+ENV readonly_host false
+ENV buildkotlinlang_host false
 
 ADD entrypoint.sh /entrypoint.sh
 ADD nginx /etc/nginx
