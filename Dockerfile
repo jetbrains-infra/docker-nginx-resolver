@@ -10,6 +10,7 @@ ENV main_host localhost
 ENV readonly_host false
 ENV readonly_header_host readonly
 ENV buildkotlinlang_host false
+ENV buildkotlinlang_header_host false
 
 ADD entrypoint.sh /entrypoint.sh
 ADD nginx /etc/nginx

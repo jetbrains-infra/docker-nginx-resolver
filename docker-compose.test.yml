@@ -6,10 +6,11 @@ services:
       - "80:80"
     environment:
       - "CONTAINER_VERSION=test"
-      - "main_host=httpbin"
-      - "readonly_host=readonly"
+      - "main_host=http://httpbin"
+      - "readonly_host=http://readonly"
       - "readonly_header_host=readonly"
-      - "buildkotlinlang_host=buildkotlinlang"
+      - "buildkotlinlang_host=http://buildkotlinlang"
+      - "buildkotlinlang_header_host=buildkotlinlang"
     depends_on:
       - httpbin
       - readonly

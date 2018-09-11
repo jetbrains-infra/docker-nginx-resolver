@@ -17,19 +17,13 @@ else
   echo "Failed!"; ((status++))
 fi
 echo -n "Test: /health_check contains correct main_host: "
-if [[ $(curl -s $container_host/health_check) =~ "main_host=httpbin" ]]; then
+if [[ $(curl -s $container_host/health_check) =~ "main_host=http://httpbin" ]]; then
   echo "Success!"
 else
   echo "Failed!"; ((status++))
 fi
 echo -n "Test: /health_check contains correct readonly_host: "
-if [[ $(curl -s $container_host/health_check) =~ "readonly_host=readonly" ]]; then
-  echo "Success!"
-else
-  echo "Failed!"; ((status++))
-fi
-echo -n "Test: /health_check contains correct buildkotlinlang_host: "
-if [[ $(curl -s $container_host/health_check) =~ "buildkotlinlang_host=buildkotlinlang" ]]; then
+if [[ $(curl -s $container_host/health_check) =~ "readonly_host=http://readonly" ]]; then
   echo "Success!"
 else
   echo "Failed!"; ((status++))
@@ -40,7 +34,18 @@ if [[ $(curl -s $container_host/health_check) =~ "readonly_header_host=readonly"
 else
   echo "Failed!"; ((status++))
 fi
-
+echo -n "Test: /health_check contains correct buildkotlinlang_host: "
+if [[ $(curl -s $container_host/health_check) =~ "buildkotlinlang_host=http://buildkotlinlang" ]]; then
+  echo "Success!"
+else
+  echo "Failed!"; ((status++))
+fi
+echo -n "Test: /health_check contains correct buildkotlinlang_header_host: "
+if [[ $(curl -s $container_host/health_check) =~ "buildkotlinlang_header_host=buildkotlinlang" ]]; then
+  echo "Success!"
+else
+  echo "Failed!"; ((status++))
+fi
 
 # This test checks return build.kotlinlang.org when 404 from main
 echo -n "Test: 404 must return buildkotlinlang: "
