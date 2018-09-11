@@ -9,6 +9,7 @@ services:
       - "main_host=httpbin"
       - "readonly_host=readonly"
       - "buildkotlinlang_host=buildkotlinlang"
+      - "readonly_host=readonly"
     depends_on:
       - httpbin
       - readonly

@@ -1,5 +1,4 @@
 set ${DOLLAR}main_host            http://${main_host};
-set ${DOLLAR}proxy_header_host    ${readonly_host};
 set ${DOLLAR}readonly_host        http://${readonly_host};
 set ${DOLLAR}buildkotlinlang_host http://${buildkotlinlang_host};
 
