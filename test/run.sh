@@ -34,6 +34,13 @@ if [[ $(curl -s $container_host/health_check) =~ "buildkotlinlang_host=buildkotl
 else
   echo "Failed!"; ((status++))
 fi
+echo -n "Test: /health_check contains correct readonly_header_host: "
+if [[ $(curl -s $container_host/health_check) =~ "readonly_header_host=readonly" ]]; then
+  echo "Success!"
+else
+  echo "Failed!"; ((status++))
+fi
+
 
 # This test checks return build.kotlinlang.org when 404 from main
 echo -n "Test: 404 must return buildkotlinlang: "
@@ -65,4 +72,10 @@ for code in 502 503 504; do
     fi
 done
 
+echo -n "Test summary: "
+if [[ $status = 0 ]]; then
+  echo "Success!"
+else
+  echo "Failed!"
+fi
 exit $status

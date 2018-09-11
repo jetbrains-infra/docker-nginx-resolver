@@ -8,6 +8,7 @@ services:
       - "CONTAINER_VERSION=test"
       - "main_host=httpbin"
       - "readonly_host=readonly"
+      - "readonly_header_host=readonly"
       - "buildkotlinlang_host=buildkotlinlang"
     depends_on:
       - httpbin
