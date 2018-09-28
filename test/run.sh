@@ -47,19 +47,19 @@ else
   echo "Failed!"; ((status++))
 fi
 
-# This test checks return build.kotlinlang.org when 404 from main
-echo -n "Test: 404 must return buildkotlinlang: "
-if [[ $(curl -s $container_host/status/404) = "buildkotlinlang" ]]; then
-  echo "Success!"
-else
-  echo "Failed!"; ((status++))
-fi
-echo -n "Test: 404 must return 200: "
-if [[ $(curl -s -o /dev/null -w "%{http_code}" $container_host/status/404) = 200 ]]; then
-  echo "Success!"
-else
-  echo "Failed!"; ((status++))
-fi
+## This test checks return build.kotlinlang.org when 404 from main
+# echo -n "Test: 404 must return buildkotlinlang: "
+# if [[ $(curl -s $container_host/status/404) = "buildkotlinlang" ]]; then
+#   echo "Success!"
+# else
+#   echo "Failed!"; ((status++))
+# fi
+# echo -n "Test: 404 must return 200: "
+# if [[ $(curl -s -o /dev/null -w "%{http_code}" $container_host/status/404) = 200 ]]; then
+#   echo "Success!"
+# else
+#   echo "Failed!"; ((status++))
+# fi
 
 # This test checks return readonly when [502 503 504] from main
 for code in 502 503 504; do
